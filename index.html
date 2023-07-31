@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grafik Jenis Bencana di Indonesia (2000-2022)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="barchart" width="600" height="300"></canvas>
+
+    <div>
+        <h2>Kesimpulan:</h2>
+        <p>
+            Grafik di atas menampilkan jumlah kejadian berbagai jenis bencana di Indonesia dari tahun 2000 hingga 2022.
+            Bencana alam memiliki jumlah kejadian yang cukup tinggi pada tahun 2005 dan 2006, tetapi cenderung menurun
+            setelahnya. Sementara itu, bencana non alam dan penyakit mengalami peningkatan signifikan dari tahun ke tahun
+            terutama pada periode 2010 hingga 2022. Bencana sosial, meskipun jarang terjadi, juga menunjukkan beberapa
+            puncak kejadian pada tahun 2010 dan 2021.
+        </p>
+    </div>
+
+    <script>
+
+        const tahun = Array.from({length: 23}, (_, i) => 2000 + i);
+        const bencana_alam = [0, 0, 0, 0, 166698, 1973, 6960, 562, 262, 1447, 1306, 172, 174, 0, 0, 215, 442, 169, 3739, 352, 236, 583, 0];
+        const bencana_non_alam_dan_penyakit = [339, 324, 435, 633, 54046, 121063, 120104, 88713, 106035, 31661, 37922, 1967, 1595, 1145, 1199, 2096, 2156, 875, 1212, 14338, 37823, 138519, 12876];
+        const bencana_sosial = [0, 0, 0, 0, 0, 0, 1, 0, 1, 16, 33, 34, 65, 0, 0, 45, 26, 0, 25, 7, 4, 4, 0];
+
+
+        var ctx = document.getElementById('barchart').getContext('2d');
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: tahun,
+                datasets: [
+                    {
+                        label: 'Bencana Alam',
+                        data: bencana_alam,
+                        backgroundColor: 'orange' 
+                    },
+                    {
+                        label: 'Bencana Non Alam dan Penyakit',
+                        data: bencana_non_alam_dan_penyakit,
+                        backgroundColor: 'red' 
+                    },
+                    {
+                        label: 'Bencana Sosial',
+                        data: bencana_sosial,
+                        backgroundColor: 'yellow'
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    x: {
+                        stacked: true
+                    },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true, 
+                        ticks: {
+                            stepSize: 50000 
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Jumlah Kejadian Jenis Bencana di Indonesia (2000-2022)',
+                        font: {
+                            size: 18 
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    },
+                },
+                animation: {
+                    duration: 1500, 
+                }
+            }
+        });
+    </script>
+</body>
+</html>
